@@ -1,0 +1,3 @@
+[submodule "CppUnitTestFramework"]
+	path = CppUnitTestFramework
+	url = https://github.com/drleq/CppUnitTestFramework.git
