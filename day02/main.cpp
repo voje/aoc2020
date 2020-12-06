@@ -1,11 +1,18 @@
 #include <iostream>
+#include <vector>
+#include <string>
+#include "readinput.hpp"
 
+using namespace aoc2020;
 using namespace std;
 
-int sum(int a, int b) {
-    return a + b;
-}
+int main ()
+{
+    vector<string> input; 
+    input = Input::Read("../input.txt");
 
-int main() {
-    cout << "hey" << endl;
+    for (auto el: input)
+    {
+        cout << el << endl;
+    }
 }

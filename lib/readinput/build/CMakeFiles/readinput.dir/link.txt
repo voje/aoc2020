@@ -1,0 +1,2 @@
+/usr/bin/ar qc libreadinput.a  CMakeFiles/readinput.dir/readinput.cpp.o
+/usr/bin/ranlib libreadinput.a

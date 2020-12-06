@@ -1,0 +1,2 @@
+/usr/bin/ar qc libpwrecord.a  CMakeFiles/pwrecord.dir/pwrecord.cpp.o
+/usr/bin/ranlib libpwrecord.a

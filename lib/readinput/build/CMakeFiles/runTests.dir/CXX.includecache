@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/c/Users/kristjan/git/aoc2020/lib/readinput/readinput.hpp
+vector
+-
+string
+-
+
+/c/Users/kristjan/git/aoc2020/lib/readinput/tests.cpp
+gtest/gtest.h
+-
+string
+-
+vector
+-
+readinput.hpp
+/c/Users/kristjan/git/aoc2020/lib/readinput/readinput.hpp
+
