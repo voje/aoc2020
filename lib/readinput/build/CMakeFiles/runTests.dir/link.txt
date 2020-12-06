@@ -1,1 +1,0 @@
-/usr/bin/c++     CMakeFiles/runTests.dir/tests.cpp.o  -o runTests libreadinput.a /usr/lib/libgtest.a -lpthread 

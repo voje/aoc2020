@@ -1,4 +1,0 @@
-/c/Users/kristjan/git/aoc2020/lib/readinput/build/CMakeFiles/edit_cache.dir
-/c/Users/kristjan/git/aoc2020/lib/readinput/build/CMakeFiles/readinput.dir
-/c/Users/kristjan/git/aoc2020/lib/readinput/build/CMakeFiles/rebuild_cache.dir
-/c/Users/kristjan/git/aoc2020/lib/readinput/build/CMakeFiles/runTests.dir

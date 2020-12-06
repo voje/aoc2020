@@ -1,4 +1,0 @@
-/c/Users/kristjan/git/aoc2020/day02/lib/build/CMakeFiles/edit_cache.dir
-/c/Users/kristjan/git/aoc2020/day02/lib/build/CMakeFiles/pwrecord.dir
-/c/Users/kristjan/git/aoc2020/day02/lib/build/CMakeFiles/rebuild_cache.dir
-/c/Users/kristjan/git/aoc2020/day02/lib/build/CMakeFiles/runTests.dir
