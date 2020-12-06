@@ -1,4 +1,5 @@
 #include <string>
+#include <ostream>
 
 namespace aoc2020
 {
@@ -8,10 +9,13 @@ namespace aoc2020
     public:
         PwRecord (std::string);
         bool IsValid();
+        bool IsValidInSecondJob();
+        friend std::ostream& operator<<(std::ostream&, const PwRecord&);
     private:
-        std::string minCount;
-        std::string maxCount;
-        std::string chr;
+        uint8_t minCount;
+        uint8_t maxCount;
+        char chr;
         std::string password;
     };
+
 }
