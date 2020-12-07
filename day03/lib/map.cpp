@@ -1,19 +1,26 @@
 #include <iostream>
+#include <vector>
+#include <exception>
+
 #include "map.hpp"
 
 namespace aoc2020
 {
 
-    Map::Map(uint32_t width, uint32_t height)
+    Map::Map(const std::vector<std::string> &svec)
     {
-        this->height = height;
-        this->width = width;
+        if (svec.size() == 0) {
+            throw std::length_error("Trying to create a zero-length map");
+        }
+
+        this->height = svec.size();
+        this->width = svec[0].size();
 
         this->rows = new char*[this->height]();
         for (size_t y = 0; y < this->height; y++) {
             this->rows[y] = new char[this->width]();
             for (size_t x = 0; x < this->width; x++) {
-                rows[y][x] = '.';
+                this->Set(x, y, svec[y][x]);
             }
         }
     }
@@ -26,14 +33,14 @@ namespace aoc2020
         delete this->rows;
     }
 
-    char Map::Get(uint32_t x, uint32_t y)
+    char Map::Get(uint32_t x, uint32_t y) const
     {
-        return this->rows[this->wrapX(x)][this->wrapY(y)];
+        return this->rows[this->wrapY(y)][this->wrapX(x)];
     }
 
     void Map::Set(uint32_t x, uint32_t y, char ch)
     {
-        this->rows[this->wrapX(x)][this->wrapY(y)] = ch;
+        this->rows[this->wrapY(y)][this->wrapX(x)] = ch;
     }
 
     std::ostream& operator<<(std::ostream& ost, const Map& obj)
@@ -42,7 +49,7 @@ namespace aoc2020
         std::cout << "width : " << obj.width << std::endl;
         for (size_t y = 0; y < obj.height; y++) {
             for (size_t x = 0; x < obj.width; x++) {
-                std::cout << obj.rows[y][x];
+                std::cout << obj.Get(x, y);
             }
             std::cout << std::endl;
         }

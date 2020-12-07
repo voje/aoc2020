@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <stdexcept>
+#include <vector>
 
 namespace aoc2020 {
 
@@ -12,11 +13,11 @@ namespace aoc2020 {
         uint32_t height;
         char** rows;
 
-        Map(uint32_t width, uint32_t height);
+        Map(const std::vector<std::string> &svec);
         ~Map();
 
         void Set(uint32_t x, uint32_t y, char);
-        char Get(uint32_t x, uint32_t y);
+        char Get(uint32_t x, uint32_t y) const;
 
         // Traverse the map, according to aoc puzzle 03, part one.
         uint32_t Traverse();
@@ -24,14 +25,14 @@ namespace aoc2020 {
         friend std::ostream& operator<<(std::ostream&, const Map&);
     
     private:
-        uint32_t wrapX(uint32_t x)
+        uint32_t wrapX(uint32_t x) const
         {
             return x % this->width;
         }
 
-        uint32_t wrapY(uint32_t y)
+        uint32_t wrapY(uint32_t y) const
         {
-            return y % this->width;
+            return y % this->height;
         }
 
     };

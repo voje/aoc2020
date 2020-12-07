@@ -11,13 +11,7 @@ int main()
     vector<string> input;
     input = Input::Read("../input.txt");
 
-    Map m(input[0].size(), input.size());
-
-    for (size_t y = 0; y < input.size(); y++) {
-        for (size_t x = 0; x < input.size(); x++) {
-            m.Set(x, y, input[y][x]);
-        }
-    }
+    Map m(input);
 
     uint32_t treeCount = m.Traverse();
 
