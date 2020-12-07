@@ -1,4 +1,5 @@
 #include <iostream>
+#include <numeric>
 
 #include "map.hpp"
 #include "readinput.hpp"
@@ -13,9 +14,28 @@ int main()
 
     Map m(input);
 
-    uint32_t treeCount = m.Traverse();
+    vector<uint32_t> res;
 
-    cout << "We hit this many trees: " << treeCount << endl;
+    res.push_back(m.Traverse(1, 1));
+    cout << "1, 1: " << res.back() << endl;
+
+    res.push_back(m.Traverse(3, 1));
+    cout << "3, 1: " << res.back() << endl;
+
+    res.push_back(m.Traverse(5, 1));
+    cout << "5, 1: " << res.back() << endl;
+
+    res.push_back(m.Traverse(7, 1));
+    cout << "7, 1: " << res.back() << endl;
+
+    res.push_back(m.Traverse(1, 2));
+    cout << "1,2: " << res.back() << endl;
+
+    double mul = 1;
+    for (const uint32_t r: res) {
+        mul *= r;
+    }
+    cout << "mul: " << to_string(mul) << endl;
 
     return 0;
 }

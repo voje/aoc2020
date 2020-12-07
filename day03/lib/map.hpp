@@ -14,13 +14,12 @@ namespace aoc2020 {
         char** rows;
 
         Map(const std::vector<std::string> &svec);
-        ~Map();
 
         void Set(uint32_t x, uint32_t y, char);
         char Get(uint32_t x, uint32_t y) const;
 
         // Traverse the map, according to aoc puzzle 03, part one.
-        uint32_t Traverse();
+        uint32_t Traverse(uint32_t xSpeed, uint32_t ySpeed);
 
         friend std::ostream& operator<<(std::ostream&, const Map&);
     

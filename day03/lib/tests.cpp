@@ -75,22 +75,38 @@ TEST(MapTest, testTraverse1)
 {
     Map m(input1);
 
-    std::cout << m << std::endl;
-    uint32_t treeCount = m.Traverse();
-    std::cout << m << std::endl;
+    uint32_t res;
+    uint32_t mult = 1;
 
-    EXPECT_EQ(treeCount, 7);
+    res = m.Traverse(1, 1);
+    EXPECT_EQ(res, 2);
+    mult *= res;
+
+    res = m.Traverse(3, 1);
+    EXPECT_EQ(res, 7);
+    mult *= res;
+
+    res = m.Traverse(5, 1);
+    EXPECT_EQ(res, 3);
+    mult *= res;
+
+    res = m.Traverse(7, 1);
+    EXPECT_EQ(res, 4);
+    mult *= res;
+
+    res = m.Traverse(1, 2);
+    EXPECT_EQ(res, 2);
+    mult *= res;
+
+    EXPECT_EQ(mult, 336);
 }
 
 TEST(MapTest, testTraverse2)
 {
     Map m(input2);
 
-    std::cout << m << std::endl;
-    uint32_t treeCount = m.Traverse();
-    std::cout << m << std::endl;
-
-    EXPECT_EQ(treeCount, 3);
+    EXPECT_EQ(m.Traverse(1, 1), 4);
+    EXPECT_EQ(m.Traverse(3, 1), 3);
 }
 
 int main(int argc, char **argv)

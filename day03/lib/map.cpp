@@ -16,21 +16,13 @@ namespace aoc2020
         this->height = svec.size();
         this->width = svec[0].size();
 
-        this->rows = new char*[this->height]();
+        this->rows = new char*[this->height];
         for (size_t y = 0; y < this->height; y++) {
-            this->rows[y] = new char[this->width]();
+            this->rows[y] = new char[this->width];
             for (size_t x = 0; x < this->width; x++) {
                 this->Set(x, y, svec[y][x]);
             }
         }
-    }
-
-    Map::~Map()
-    {
-        for (size_t i = 0; i < this->height; i++) {
-            delete this->rows[i];
-        }
-        delete this->rows;
     }
 
     char Map::Get(uint32_t x, uint32_t y) const
@@ -65,17 +57,23 @@ namespace aoc2020
 
     };
 
-    uint32_t Map::Traverse()
+    uint32_t Map::Traverse(uint32_t xSpeed, uint32_t ySpeed)
     {
         uint32_t treeCount = 0;
 
-        tobogan toby;
+        tobogan toby {
+            xSpeed: xSpeed,
+            ySpeed: ySpeed,
+            xPos: 0,
+            yPos: 0,
+        };
+
         while (toby.yPos < this->height) {
             if (this->Get(toby.xPos, toby.yPos) == '#') {
-                this->Set(toby.xPos, toby.yPos, 'X');
+                // this->Set(toby.xPos, toby.yPos, 'X');
                 treeCount++;
             } else {
-                this->Set(toby.xPos, toby.yPos, 'O');
+                // this->Set(toby.xPos, toby.yPos, 'O');
             }
 
             // Move toby
