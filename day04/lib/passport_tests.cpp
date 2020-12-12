@@ -22,24 +22,19 @@ const std::string input =
 
 TEST(FooTest, MethodBarDoesAbc)
 {
-    std::vector<Passport> passports; 
-
+    std::vector<Passport*> passports; 
     std::istringstream inputIs(input);
 
-    inputIs >> pp;
-    std::cout << pp <<std::endl;
+    while (true) {
+        Passport pp;
+        inputIs >> pp;
 
-    inputIs >> pp;
-    std::cout << pp <<std::endl;
+        if (pp.rawInput.size() == 0) {
+            break;
+        }
 
-    inputIs >> pp;
-    std::cout << pp <<std::endl;
-
-    inputIs >> pp;
-    std::cout << pp <<std::endl;
-
-    inputIs >> pp;
-    std::cout << pp <<std::endl;
+        passports.push_back(&pp);
+    }
 
     EXPECT_EQ(9, 9);
 }
