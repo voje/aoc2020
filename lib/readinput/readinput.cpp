@@ -14,7 +14,7 @@ namespace aoc2020
 
     std::vector<std::string> Input::ReadWithEmptyLines(const std::string& filepath)
     {
-        return Input::_read(filepath, true);
+        return Input::_read(filepath, false);
     }
 
     std::vector<std::string> Input::_read(const std::string& filepath, bool skipEmptyLines)
