@@ -1,0 +1,2 @@
+add_subdirectory(aoc)
+add_subdirectory(readinput)
