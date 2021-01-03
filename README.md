@@ -9,3 +9,5 @@ VSCode
 
 Extensions:
 * C/C++
+
+A bit stuck on the Graph part. Note to self: don't abuse CPP pointers!!
