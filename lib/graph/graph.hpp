@@ -10,10 +10,10 @@ namespace aoc2020 {
 
     class Edge {
     friend class Graph;
+    friend class Node;
     public:
         Edge(int w, Node *fromNode, Node *toNode);
         std::string toString() const;
-    private:
         int weight;
         Node *from;
         Node *to;
@@ -24,6 +24,10 @@ namespace aoc2020 {
     public:
         Node() {};
         Node(std::string name);
+        std::string getName() const;
+        void addEdge(Edge*);
+        std::vector<Edge*> getFromEdges();
+        std::vector<Edge*> getToEdges();
         std::string toString() const;
     private:
         std::string name;
@@ -35,6 +39,8 @@ namespace aoc2020 {
     public:
         Graph() {};
         void addNode(std::string name);
+        Node* getNode(std::string name);
+
         void addEdge(int weight, std::string from, std::string to);
 
         void printNodes();
@@ -42,8 +48,8 @@ namespace aoc2020 {
         
         std::string toString(std::string startNode, int depth);
     private:
-        std::map<std::string, Node> nodes;
-        std::vector<Edge> edges;
+        std::map<std::string, Node*> nodes;
+        std::vector<Edge*> edges;
     };
 
 }
