@@ -6,11 +6,15 @@
 namespace aoc2020 {
 
     void Graph::addNode(std::string name) {
-        Node *np = new Node(name);
+        std::shared_ptr<Node> np = std::make_shared<Node>(Node(name));
         nodes[name] = np;
     }
 
-    Node* Graph::getNode(std::string name) {
+    void Graph::addNode(std::string name, std::shared_ptr<Node> nodePtr) {
+        nodes[name] = nodePtr;
+    }
+
+    std::shared_ptr<Node> Graph::getNode(std::string name) {
         return nodes[name];
     }
 
@@ -18,10 +22,13 @@ namespace aoc2020 {
         name = nname;
     }
 
-    std::vector<Edge*> Node::getFromEdges() {
-        std::vector<Edge*> res;
+    std::vector<std::shared_ptr<Edge>> Node::getFromEdges() {
+        std::vector<std::shared_ptr<Edge>> res;
         for (auto &e: edges) {
+            #ifdef DEBUG
             std::cout << e->from << std::endl;
+            #endif
+
             if (e->from->name == name) {
                 res.push_back(e);
             }
@@ -29,10 +36,10 @@ namespace aoc2020 {
         return res;
     }
 
-    std::vector<Edge*> Node::getToEdges() {
-        std::vector<Edge*> res;
+    std::vector<std::shared_ptr<Edge>> Node::getToEdges() {
+        std::vector<std::shared_ptr<Edge>> res;
         for (auto &e: edges) {
-            if (e->to == this) {
+            if (e->to.get() == this) {
                 res.push_back(e);
             }
         }
@@ -43,7 +50,7 @@ namespace aoc2020 {
         return name;
     }
 
-    void Node::addEdge(Edge* e) {
+    void Node::addEdge(std::shared_ptr<Edge> e) {
         edges.push_back(e);
     };
 
@@ -61,7 +68,7 @@ namespace aoc2020 {
         return ss.str();
     }
 
-    Edge::Edge(int w, Node* fromNode, Node* toNode) {
+    Edge::Edge(int w, std::shared_ptr<Node> fromNode, std::shared_ptr<Node> toNode) {
         weight = w;
         from = fromNode;
         to = toNode;
@@ -78,27 +85,32 @@ namespace aoc2020 {
     }
 
     void Graph::addEdge(int weight, std::string from, std::string to) {
-        Node *pFrom = nodes[from];
-        Node *pTo = nodes[to];
-        Edge edg(1, pFrom, pTo);
-        edges.push_back(&edg);
-        pFrom->edges.push_back(&edg);
-        pTo->edges.push_back(&edg);
+        std::shared_ptr<Node> pFrom = nodes[from];
+        std::shared_ptr<Node> pTo = nodes[to];
+        std::shared_ptr<Edge> edg = std::make_shared<Edge>(Edge(1, pFrom, pTo));
+        this->edges.push_back(edg);
+        pFrom->edges.push_back(edg);
+        pTo->edges.push_back(edg);
     }
 
     // Init with depth = 0
     std::string Graph::toString(std::string startNode, int depth) {
         std::stringstream ss;
-        Node* sn = nodes[startNode];
+        std::shared_ptr<Node> sn = nodes[startNode];
+
         std::cout << sn->name << std::endl;
+
         ss << "(" << sn->name << ")";
 
-        for (Edge* e: sn->edges) {
-            Node* n = e->from;
+        for (auto &e: sn->edges) {
+            std::shared_ptr<Node> n = e->from;
+
             std::cout << n << std::endl;
+
             if (e->from->name == sn->name) {
                 std::cout << e->from->name << std::endl;
                 std::cout << e->to->name << std::endl;
+
                 ss << std::string(depth, '-');
                 ss << toString(e->to->name, depth++);
             }
@@ -108,6 +120,7 @@ namespace aoc2020 {
 
     void Graph::printNodes() {
         std::cout << "Nodes:" << std::endl;
+
         for (auto const &n: nodes) {
             std::cout << n.first << ": ";
             std::cout << (n.second)->toString() << std::endl;

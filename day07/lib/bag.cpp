@@ -4,7 +4,9 @@
 #include <string>
 #include <iostream>
 
-class Bag {
+#include "graph/graph.hpp"
+
+class Bag : public aoc2020::Node {
 private:
     // Groups:                   m.str(1) m.str(2)                              
     std::regex reg = std::regex("(\\d+)? ?(\\w+ \\w+) bags?");

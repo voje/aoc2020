@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <memory>
 
 namespace aoc2020 {
 
@@ -12,11 +13,11 @@ namespace aoc2020 {
     friend class Graph;
     friend class Node;
     public:
-        Edge(int w, Node *fromNode, Node *toNode);
+        Edge(int w, std::shared_ptr<Node> fromNode, std::shared_ptr<Node> toNode);
         std::string toString() const;
         int weight;
-        Node *from;
-        Node *to;
+        std::shared_ptr<Node> from;
+        std::shared_ptr<Node> to;
     };
 
     class Node {
@@ -25,21 +26,22 @@ namespace aoc2020 {
         Node() {};
         Node(std::string name);
         std::string getName() const;
-        void addEdge(Edge*);
-        std::vector<Edge*> getFromEdges();
-        std::vector<Edge*> getToEdges();
+        void addEdge(std::shared_ptr<Edge>);
+        std::vector<std::shared_ptr<Edge>> getFromEdges();
+        std::vector<std::shared_ptr<Edge>> getToEdges();
         std::string toString() const;
     private:
         std::string name;
         std::vector<int> testVector;
-        std::vector<Edge*> edges;
+        std::vector<std::shared_ptr<Edge>> edges;
     };
 
     class Graph {
     public:
         Graph() {};
         void addNode(std::string name);
-        Node* getNode(std::string name);
+        void addNode(std::string name, std::shared_ptr<Node> nodePtr);
+        std::shared_ptr<Node> getNode(std::string name);
 
         void addEdge(int weight, std::string from, std::string to);
 
@@ -48,8 +50,8 @@ namespace aoc2020 {
         
         std::string toString(std::string startNode, int depth);
     private:
-        std::map<std::string, Node*> nodes;
-        std::vector<Edge*> edges;
+        std::map<std::string, std::shared_ptr<Node>> nodes;
+        std::vector<std::shared_ptr<Edge>> edges;
     };
 
 }
