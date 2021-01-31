@@ -80,13 +80,27 @@ TEST(Graph, Create)
     Graph g;
     g.addNode("a");
     g.addNode("b");
-    // g.printNodes();
+    g.addNode("c");
+    g.addNode("d");
 
     g.addEdge(1, "a", "b");
-    // g.printNodes();
-    // g.printEdges();
+    g.addEdge(1, "a", "c");
+    g.addEdge(1, "c", "d");
+
+    // Add another root node
+    g.addNode("e");
+    g.addNode("f");
+    g.addNode("g");
+    g.addNode("h");
+
+    g.addEdge(1, "e", "f");
+    g.addEdge(1, "f", "g");
+    g.addEdge(1, "f", "h");
 
     // std::cout << g.toString("a", 0) << std::endl;
+
+    std::cout << "Printing whole graph" << std::endl;
+    std::cout << g.toString() << std::endl;
 }
 
 int main(int argc, char **argv)

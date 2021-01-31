@@ -48,7 +48,9 @@ namespace aoc2020 {
         void printNodes();
         void printEdges();
         
+        std::string toString();
         std::string toString(std::string startNode, int depth);
+        std::vector<std::string> getRootNodes();
     private:
         std::map<std::string, std::shared_ptr<Node>> nodes;
         std::vector<std::shared_ptr<Edge>> edges;

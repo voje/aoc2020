@@ -11,6 +11,7 @@ namespace aoc2020 {
     }
 
     void Graph::addNode(std::string name, std::shared_ptr<Node> nodePtr) {
+        nodePtr -> name = name;
         nodes[name] = nodePtr;
     }
 
@@ -77,9 +78,10 @@ namespace aoc2020 {
     std::string Edge::toString() const {
         std::stringstream ss;
         ss << "Edge{ ";
+        ss << " weight: " << weight;
         ss << " ptr: " << this;
-        ss << " from: " << from;
-        ss << " to: " << to;
+        ss << " from: " << from->getName();
+        ss << " to: " << to->getName();
         ss << "}";
         return ss.str();
     }
@@ -87,10 +89,39 @@ namespace aoc2020 {
     void Graph::addEdge(int weight, std::string from, std::string to) {
         std::shared_ptr<Node> pFrom = nodes[from];
         std::shared_ptr<Node> pTo = nodes[to];
-        std::shared_ptr<Edge> edg = std::make_shared<Edge>(Edge(1, pFrom, pTo));
+        std::shared_ptr<Edge> edg = std::make_shared<Edge>(Edge(weight, pFrom, pTo));
         this->edges.push_back(edg);
         pFrom->edges.push_back(edg);
         pTo->edges.push_back(edg);
+    }
+
+    // Return nodes with no inbound edeges
+    std::vector<std::string> Graph::getRootNodes() {
+        std::vector<std::string> rootNodes;
+        for (auto const &n : nodes) {
+            if (n.second->getToEdges().size() == 0) {
+                rootNodes.push_back(n.first);
+            }
+        }
+        return rootNodes;
+    }
+
+    // toString finds all root nodes and prints out trees beginning in those nodes.   
+    // Does not handle cycles.   
+    std::string Graph::toString() {
+        std::vector<std::string> rootNodes = getRootNodes();
+
+        std::stringstream ss;
+        ss << "root nodes: ";
+        for (auto const &rn : rootNodes) {
+            ss << rn << ", ";
+        }
+        ss << std::endl;
+
+        for (auto const &rn : rootNodes) {
+            ss << toString(rn, 0);
+        }
+        return ss.str();
     }
 
     // Init with depth = 0
@@ -98,22 +129,13 @@ namespace aoc2020 {
         std::stringstream ss;
         std::shared_ptr<Node> sn = nodes[startNode];
 
-        std::cout << sn->name << std::endl;
+        if (depth == 0) {
+            ss << std::endl << "Root node: " << startNode << std::endl;
+        }
+        ss << std::string(depth*2, '-') << sn->name << std::endl;
 
-        ss << "(" << sn->name << ")";
-
-        for (auto &e: sn->edges) {
-            std::shared_ptr<Node> n = e->from;
-
-            std::cout << n << std::endl;
-
-            if (e->from->name == sn->name) {
-                std::cout << e->from->name << std::endl;
-                std::cout << e->to->name << std::endl;
-
-                ss << std::string(depth, '-');
-                ss << toString(e->to->name, depth++);
-            }
+        for (auto &e: sn->getFromEdges()) {
+            ss << toString(e->to->name, depth + 1);
         }
         return ss.str();
     }

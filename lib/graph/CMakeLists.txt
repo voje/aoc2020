@@ -16,6 +16,6 @@ include_directories(${GTEST_INCLUDE_DIRS})
 set(CMAKE_BUILD_TYPE Debug)
 
 # Link runTests with what we want to test and the GTest and pthread library
-add_executable(graph_tests tests.cpp)
+add_executable(graph_tests graph_tests.cpp)
 target_link_libraries(graph_tests graph ${GTEST_LIBRARIES} pthread)
 
